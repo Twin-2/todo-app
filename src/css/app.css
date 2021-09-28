@@ -62,3 +62,14 @@ section {
   width: 100%;
   flex: 1;
 }
+
+.pagination {
+  text-align: right;
+}
+.pagination button {
+  margin: 5px;
+}
+
+.pagination button:focus {
+  background-color: skyblue;
+}
