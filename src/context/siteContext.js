@@ -5,9 +5,10 @@ export const SiteContext = React.createContext();
 function Site(props) {
 
     const state = {
-        displayCompletedItems: true,
+        displayCompletedItems: false,
         itemsPerPage: 3,
         defaultSort: 'name',
+        mode: 'light',
     };
 
     return (
