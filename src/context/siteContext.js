@@ -6,7 +6,7 @@ function Site(props) {
 
     const state = {
         displayCompletedItems: true,
-        itemsPerScreen: 3,
+        itemsPerPage: 3,
         defaultSort: 'name',
     };
 

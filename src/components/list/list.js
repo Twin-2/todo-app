@@ -14,7 +14,6 @@ function List(props) {
         <div className="toDoList">
             {props.list.map((item, idx) => (
                 <Card elevation={Elevation.THREE}>
-
                     <div display='true' id={idx} key={item.id}>
                         <div className='title'>
                             <span className={`bp3-tag bp3-round ${item.complete ? 'bp3-intent-danger' : 'bp3-intent-success'}`} onClick={() => props.toggleComplete(item.id)}>{item.complete ? 'Complete' : 'In Progress'}</span>

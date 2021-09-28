@@ -3,6 +3,7 @@ import Form from "../form/form";
 import List from "../list/list"
 import { useContext } from "react";
 import { SiteContext } from "../../context/siteContext";
+import Pages from "../pagination"
 
 const ToDo = () => {
 
@@ -10,15 +11,21 @@ const ToDo = () => {
 
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   function deleteItem(id) {
     const items = list.filter(item => item.id !== id);
     setList(items);
   }
 
+  const indexOfLastPost = currentPage * siteContext.itemsPerPage;
+  const indexOfFirstPost = indexOfLastPost - siteContext.itemsPerPage;
+  const currentItems = list.slice(indexOfFirstPost, indexOfLastPost)
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   function toggleComplete(id) {
-
     const items = list.map(item => {
       if (item.id == id) {
         item.complete = !item.complete;
@@ -41,9 +48,9 @@ const ToDo = () => {
       </header>
       <section>
         <Form setList={setList} list={list} />
-
-        <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+        <List list={currentItems} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </section>
+      <Pages itemsPerPage={siteContext.itemsPerPage} totalItems={list.length} paginate={paginate} />
     </main>
   );
 };
