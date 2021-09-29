@@ -33,19 +33,38 @@ const ToDo = () => {
     setList(items);
   };
 
+  //control sort of list based on context
+  const listSort = () => {
+    // console.log('1', list)
+    list.sort((a, b) => a[siteContext.defaultSort] - b[siteContext.defaultSort])
+    // console.log('2', list)
+  }
+
   //change the displayed list to show only what the context defines
   const changeList = () => {
-    let filteredList = list.filter(item => item.complete === siteContext.displayCompletedItems)
-    console.log('@@@@', filteredList)
-    setListOfStatus(filteredList)
+    if (!siteContext.displayCompletedItems) {
+      let filteredList = list.filter(item => item.complete === siteContext.displayCompletedItems)
+      return setListOfStatus(filteredList)
+    }
+    return setListOfStatus(list)
   }
 
   //effect hooks
   useEffect(() => {
+    if (localStorage.getItem('list')) {
+      let storedList = localStorage.getItem('list')
+      let list = JSON.parse(storedList)
+      setList(list)
+    };
+  }, [])
+
+  useEffect(() => {
+    listSort()
     let incompleteCount = list.filter(item => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incompleteCount}`;
     changeList()
+    localStorage.setItem('list', JSON.stringify(list))
   }, [list]);
 
   return (
