@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { SiteContext } from "../../context/siteContext";
 import { Card, Elevation, Icon, Tag } from "@blueprintjs/core";
+import { save } from "react-cookies";
 
 
 function List(props) {
@@ -16,6 +17,8 @@ function List(props) {
     useEffect(() => {
         setDisplayList(currentItems)
     }, [props.list, props.currentPage])
+
+
 
 
     return (

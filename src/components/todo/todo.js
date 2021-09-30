@@ -17,7 +17,8 @@ const ToDo = () => {
   //methods
   function deleteItem(id) {
     const items = list.filter(item => item.id !== id);
-    setList(items);
+    localStorage.setItem('list', JSON.stringify(items))
+    getItems()
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -30,14 +31,13 @@ const ToDo = () => {
       }
       return item;
     });
-    setList(items);
+    localStorage.setItem('list', JSON.stringify(items))
+    getItems()
   };
 
   //control sort of list based on context
   const listSort = () => {
-    // console.log('1', list)
     list.sort((a, b) => a[siteContext.defaultSort] - b[siteContext.defaultSort])
-    // console.log('2', list)
   }
 
   //change the displayed list to show only what the context defines
@@ -49,13 +49,24 @@ const ToDo = () => {
     return setListOfStatus(list)
   }
 
-  //effect hooks
-  useEffect(() => {
+  //get items
+  function getItems() {
     if (localStorage.getItem('list')) {
       let storedList = localStorage.getItem('list')
       let list = JSON.parse(storedList)
       setList(list)
     };
+  }
+
+
+  function addItem(item) {
+    localStorage.setItem('list', JSON.stringify([...list, item]))
+    getItems();
+  }
+
+  //effect hooks
+  useEffect(() => {
+    getItems();
   }, [])
 
   useEffect(() => {
@@ -64,8 +75,8 @@ const ToDo = () => {
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incompleteCount}`;
     changeList()
-    localStorage.setItem('list', JSON.stringify(list))
   }, [list]);
+
 
   return (
     <main>
@@ -73,7 +84,7 @@ const ToDo = () => {
         <h1>To Do List: {incomplete} items pending</h1>
       </header>
       <section>
-        <Form setList={setList} list={list} />
+        <Form addItem={addItem} list={list} />
         <List list={listOfStatus} currentPage={currentPage} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </section>
       <Pages itemsPerPage={siteContext.itemsPerPage} totalItems={listOfStatus.length} paginate={paginate} />

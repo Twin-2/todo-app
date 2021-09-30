@@ -1,7 +1,9 @@
 import React from 'react';
 import SiteContext from "./context/siteContext";
+import LoginContext from './context/loginContext';
 import ToDo from './components/todo/todo.js';
 import Header from "./components/header";
+import Footer from './components/footer';
 import SiteStyles from "./components/siteStyles";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/app.css";
@@ -12,17 +14,20 @@ export default class App extends React.Component {
   render() {
     return (
       <SiteContext>
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path='/'>
-              <ToDo />
-            </Route>
-            <Route exact path='/styles'>
-              <SiteStyles />
-            </Route>
-          </Switch>
-        </Router>
+        <LoginContext>
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path='/'>
+                <ToDo />
+              </Route>
+              <Route exact path='/styles'>
+                <SiteStyles />
+              </Route>
+            </Switch>
+            <Footer />
+          </Router>
+        </LoginContext>
       </SiteContext>
     );
   }

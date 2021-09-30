@@ -21,20 +21,32 @@ function Site(props) {
         saveSettings,
     };
 
-    function saveSettings(formInput) {
-        localStorage.setItem('displaySettings', JSON.stringify(formInput))
+    function saveSettings() {
+        let settings = {
+            displayCompletedItems,
+            defaultSort,
+            itemsPerPage,
+            mode,
+        }
+        localStorage.setItem('displaySettings', JSON.stringify(settings))
     }
 
     function setSettings() {
-        let displaySettings = localStorage.getItem('displaySettings')
-        displaySettings = JSON.parse(displaySettings)
-        setDisplayCompletedItems(displaySettings.displayCompleted)
-        setItemsPerPage(displaySettings.itemsPerPage)
-        setDefaultSort(displaySettings.defaultSort)
+        try {
+            let displaySettings = localStorage.getItem('displaySettings')
+            displaySettings = JSON.parse(displaySettings)
+            setDisplayCompletedItems(displaySettings.displayCompletedItems)
+            setItemsPerPage(displaySettings.itemsPerPage)
+            setDefaultSort(displaySettings.defaultSort)
+            setMode(displaySettings.mode)
+        }
+        catch (e) {
+            console.error(e.messege)
+        }
     }
 
     useEffect(() => {
-        if (localStorage.getItem('displaySettings')) { setSettings() }
+        setSettings()
     }, [])
 
     return (
