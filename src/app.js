@@ -18,10 +18,10 @@ export default class App extends React.Component {
           <Router>
             <Header />
             <Switch>
-              <Route exact path='/home'>
+              <Route exact path='/todo-app/home'>
                 <ToDo />
               </Route>
-              <Route exact path='/styles'>
+              <Route exact path='/todo-app/styles'>
                 <SiteStyles />
               </Route>
             </Switch>
