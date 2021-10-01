@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Form from "../form/form";
 import List from "../list/list"
+import Auth from '../../auth/auth.js';
 import { useContext } from "react";
 import { SiteContext } from "../../context/siteContext";
 import Pages from "../pagination"
+import { LoginContext } from '../../context/loginContext';
 
 const ToDo = () => {
   //context
   const siteContext = useContext(SiteContext);
+  const loginContext = useContext(LoginContext);
   //states
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
@@ -25,14 +28,16 @@ const ToDo = () => {
 
   //changes the complete/incomplete status of the item
   function toggleComplete(id) {
-    const items = list.map(item => {
-      if (item.id == id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
-    localStorage.setItem('list', JSON.stringify(items))
-    getItems()
+    if (loginContext.user.capabilities.includes('update')) {
+      const items = list.map(item => {
+        if (item.id == id) {
+          item.complete = !item.complete;
+        }
+        return item;
+      });
+      localStorage.setItem('list', JSON.stringify(items))
+      getItems()
+    }
   };
 
   //control sort of list based on context
@@ -84,7 +89,9 @@ const ToDo = () => {
         <h1>To Do List: {incomplete} items pending</h1>
       </header>
       <section>
-        <Form addItem={addItem} list={list} />
+        <Auth capability='create'>
+          <Form addItem={addItem} list={list} />
+        </Auth>
         <List list={listOfStatus} currentPage={currentPage} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </section>
       <Pages itemsPerPage={siteContext.itemsPerPage} totalItems={listOfStatus.length} paginate={paginate} />

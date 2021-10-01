@@ -41,6 +41,10 @@ function Login(props) {
         setIsLoggedIn(false);
     }
 
+    const can = (capability) => {
+        return user?.capabilities?.includes(capability)
+    }
+
     useEffect(() => {
         const token = cookie.load('auth') || null;
         try {
@@ -56,7 +60,8 @@ function Login(props) {
         isLoggedIn,
         user,
         login,
-        logout
+        logout,
+        can
     }
 
     return (

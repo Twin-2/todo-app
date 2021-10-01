@@ -5,6 +5,7 @@ import ToDo from './components/todo/todo.js';
 import Header from "./components/header";
 import Footer from './components/footer';
 import SiteStyles from "./components/siteStyles";
+import Auth from './auth/auth';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/app.css";
 import "./css/card.css";
@@ -17,14 +18,16 @@ export default class App extends React.Component {
         <LoginContext>
           <Router>
             <Header />
-            <Switch>
-              <Route exact path='/todo-app/home'>
-                <ToDo />
-              </Route>
-              <Route exact path='/todo-app/styles'>
-                <SiteStyles />
-              </Route>
-            </Switch>
+            <Auth capabilities='read'>
+              <Switch>
+                <Route exact path='/todo-app/home'>
+                  <ToDo />
+                </Route>
+                <Route exact path='/todo-app/styles'>
+                  <SiteStyles />
+                </Route>
+              </Switch>
+            </Auth>
             <Footer />
           </Router>
         </LoginContext>
