@@ -26,3 +26,4 @@ For testing purposes there are 4 users in the DB: admin, editor, writer, user. E
 ## Development Roadmap
 
 - clean up and componetize css files
+- write unit tests
