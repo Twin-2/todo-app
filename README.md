@@ -21,6 +21,8 @@ This is a fully front end To Do list. Add items and watch your list grow! Deploy
 - Must have 'editor' permission to change items from In Progress to Complete.
 - Must have 'admin' permission to remove items from the list.
 
+For testing purposes there are 4 users in the DB: admin, editor, writer, user. Each has a password of test.
+
 ## Development Roadmap
 
 - clean up and componetize css files
