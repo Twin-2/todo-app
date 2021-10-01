@@ -2,13 +2,13 @@
 
 ## About
 
-This is a fully front end To Do list. Add items and watch your list grow! Deployed persion in on [GitHub Pages](https://twin-2.github.io/todo-app/)
+This is a front end To Do list. Add items and watch your list grow! Deployed person in on [GitHub Pages](https://twin-2.github.io/todo-app/)
 
 ## Version 1.0.2
 
 ### 1.0.0 - 9/27/2021 - Basic functioning of adding and deleting items with 3 items per page
 
-### 1.0.1 - 9/29/2021 - Added a login form and a log out button. Login works with a seperate API to handle bearer and basic auth. Sign up is currently not supported so you must use a pre defined account (username: test, password:test) can be used for testing purposes. There is no ACL for being signed in either
+### 1.0.1 - 9/29/2021 - Added a login form and a log out button. Login works with a seperate API to handle bearer and basic auth. Sign up is currently not supported so you must use a predefined account (username: test, password:test) can be used for testing purposes. There is no ACL for being signed in either
 
 - Also added a styles page for the user to set specific preferences for items per page, whether or not to display completed items, and a sorting standard.
 
@@ -25,5 +25,5 @@ For testing purposes there are 4 users in the DB: admin, editor, writer, user. E
 
 ## Development Roadmap
 
-- clean up and componetize css files
+- clean up and componentize css files
 - write unit tests
